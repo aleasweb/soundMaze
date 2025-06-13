@@ -26,6 +26,12 @@ class MazeGenerator:
 
         # Гарантируем, что выход (w-1, h-1) проходим
         self.maze[self.height - 1][self.width - 1] = 0
+
+        ## Фикс алгоритма для закрытого выхода
+        if self.maze[self.height - 1][self.width - 2] == 1 and self.maze[self.height - 2][self.width - 1] == 1:
+            self.maze[self.height - 1][self.width - 2] = 0
+            self.maze[self.height - 2][self.width - 1] = 0
+
         return self.maze
 
     def _get_walls(self, x: int, y: int) -> List[Tuple[int, int]]:
@@ -54,8 +60,3 @@ class MazeGenerator:
     def get_start_end(self) -> Tuple[Tuple[int, int], Tuple[int, int]]:
         """Возвращает координаты входа (0, 0) и выхода (w-1, h-1)."""
         return (0, 0), (self.width - 1, self.height - 1)
-    
-    def print_maze(self):
-        """отрисовывает лабиринт"""
-        for row in self.maze:
-            print(" ".join("█" if cell == 1 else " " for cell in row))
