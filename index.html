@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Звуковой лабиринт</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+    <script src="assets/js/maze.js"></script>
+    <script src="assets/js/game.js"></script>
+    <div class="game-container">
+        <!-- Экран меню -->
+        <div class="screen menu-screen active">
+            <div class="header-section">
+                <h1 class="game-title">Звуковой лабиринт</h1>
+            </div>
+            
+            <div class="content-section">
+                <div class="controls-section">
+                    <h2 class="controls-title">Уровень сложности</h2>
+                    
+                    <div class="levels-grid">
+                        <button class="level-btn" data-size="3">3×3</button>
+                        <button class="level-btn" data-size="4">4×4</button>
+                        <button class="level-btn" data-size="5">5×5</button>
+                        <button class="level-btn" data-size="6">6×6</button>
+                        <button class="level-btn" data-size="7">7×7</button>
+                        <button class="level-btn" data-size="8">8×8</button>
+                    </div>
+                </div>
+                
+                <div class="game-description">
+                    Ваша цель — пройти по лабиринту от верхнего левого угла до нижнего правого. Вы не будете видеть самого лабиринта, но будете слышать звуковые подсказки (шаги, столкновения с препятствиями).
+                </div>
+                
+                <div class="preview-section">
+                    <h2 class="preview-title">Пример лабиринта</h2>
+                    <div class="maze-preview">
+                        <img src="assets/img/maze.png" alt="Пример лабиринта">
+                    </div>
+                    
+                    <div class="legend">
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: var(--md-on-surface);"></div>
+                            <span class="legend-text">Стены</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: var(--path-color);"></div>
+                            <span class="legend-text">Путь</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: var(--collision-color);"></div>
+                            <span class="legend-text">Столкновения</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer">
+                © 2024 Звуковой лабиринт
+            </div>
+        </div>
+        
+        <!-- Игровой экран -->
+        <div class="screen game-screen">
+            <div class="game-header">
+                <div class="game-stats">
+                    <span id="level-info">Уровень: 5×5</span>
+                    <span id="steps">Шаги: 0</span>
+                    <span id="collisions">Столкновения: 0</span>
+                </div>
+            </div>
+            
+            <div class="game-controls">
+                <div class="control-row">
+                    <button class="control-btn" id="forward-btn">↑</button>
+                </div>
+                <div class="control-row">
+                    <button class="control-btn" id="left-btn">←</button>
+                    <button class="control-btn" id="right-btn">→</button>
+                </div>
+                <div class="control-row">
+                    <button class="control-btn" id="backward-btn">↓</button>
+                </div>
+                
+                <button class="give-up-btn" id="give-up-btn">Сдаюсь</button>
+            </div>
+        </div>
+
+        <!-- Экран с результатами -->
+        <div class="screen result-screen">
+            <div class="header-section">
+                <h1 class="game-title">Результаты</h1>
+            </div>
+            
+            <div class="content-section">                
+                <div class="result-info">
+                    <h2 id="result-title">Поздравляем!</h2>
+                    <p id="result-text">Вы прошли лабиринт 5×5</p>
+                    <div class="score-display" id="result-score">Очки: 450</div>
+                </div>
+                
+                <div class="maze-preview" id="maze-container">
+                    <!-- Сюда будет вставлен лабиринт -->
+                </div>
+                <button class="menu-button" id="menu-button">В главное меню</button>
+            </div>            
+        </div>
+    </div>
+
+    <script>
+        // Инициализация игры при загрузке
+        document.addEventListener('DOMContentLoaded', () => {
+            const game = new SoundMazeGame();
+            
+            // Обработчик кнопки "В меню"
+            document.getElementById('menu-button').addEventListener('click', function() {
+                document.querySelector('.result-screen').style.display = 'none';
+                document.querySelector('.menu-screen').style.display = 'flex';
+            });
+        });
+    </script>
+</body>
+</html>
